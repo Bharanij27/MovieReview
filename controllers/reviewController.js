@@ -1,5 +1,6 @@
 const Review = require("../models/Review");
 const Movie = require("../models/Movie");
+const User = require("../models/User");
 
 // Get all reviews for a movie
 exports.getMovieReviews = async (req, res) => {
@@ -11,6 +12,11 @@ exports.getMovieReviews = async (req, res) => {
           model: Movie,
           as: "movie",
           attributes: ["title"],
+        },
+        {
+          model: User,
+          as: "user",
+          attributes: ["username", "email"],
         },
       ],
     });
