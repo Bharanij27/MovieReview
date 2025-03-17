@@ -17,9 +17,12 @@ exports.register = async (req, res) => {
        return res.status(400).json({ message: "Invalid email format" });
      }
 
-    const existingUser = await User.findOne({ where: { email } });
-    if (existingUser) {
+    const existingUserEmail = await User.findOne({ where: { email } });
+    const existingUserName = await User.findOne({ where: { username } });
+    if (existingUserEmail) {
       return res.status(400).json({ message: "Email already registered" });
+    } else if (existingUserName) {
+      return res.status(400).json({ message: "Username already exists" });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
