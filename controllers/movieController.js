@@ -3,18 +3,27 @@ const Movie = require("../models/Movie");
 // Get all movies
 exports.getAllMovies = async (req, res) => {
   try {
-    const movies = await Movie.findAll();
+    const movies = await Movie.findAll({
+      where: {
+        isDeleted: false
+      },
+    });
     res.json(movies);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "Server error" });
+    res.status(500).json({ message: "Error fetching movies", error: error.message });
   }
 };
 
 // Get single movie
 exports.getMovie = async (req, res) => {
   try {
-    const movie = await Movie.findByPk(req.params.id);
+    const movie = await Movie.findOne({
+      where: {
+        id: req.params.id,
+        isDeleted: false
+      }
+    });
     if (!movie) {
       return res.status(404).json({ message: "Movie not found" });
     }
@@ -76,8 +85,13 @@ exports.deleteMovie = async (req, res) => {
     if (!movie) {
       return res.status(404).json({ message: "Movie not found" });
     }
-
-    await movie.destroy();
+    if (movie.isDeleted) {
+      return res.status(400).json({ message: "Movie is already deleted" });
+    }
+    await movie.update({
+      isDeleted: true,
+      deletedAt: new Date()
+    });
     res.json({ message: "Movie deleted successfully" });
   } catch (error) {
     console.error(error);

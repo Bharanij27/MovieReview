@@ -35,6 +35,15 @@ const Movie = sequelize.define("Movie", {
     type: DataTypes.STRING,
     allowNull: true,
   },
+  isDeleted:{
+    type: DataTypes.BOOLEAN,
+    defaultValue: false,
+    allowNull: false
+  },
+  deletedAt:{
+    type: DataTypes.DATE,
+    allowNull: true
+  }
 });
 
 module.exports = Movie;

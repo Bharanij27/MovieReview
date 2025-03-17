@@ -5,7 +5,17 @@ require("dotenv").config();
 
 exports.register = async (req, res) => {
   try {
-    const { username, email, password, role } = req.body;
+    const { username, email, password } = req.body;
+
+    if (!username || !email || !password) {
+      return res.status(400).json({ message: "Username, email, and password are required" });
+    }
+
+     // Validate email format
+     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+     if (!emailRegex.test(email)) {
+       return res.status(400).json({ message: "Invalid email format" });
+     }
 
     const existingUser = await User.findOne({ where: { email } });
     if (existingUser) {
@@ -18,7 +28,7 @@ exports.register = async (req, res) => {
       username,
       email,
       password: hashedPassword,
-      role: role || "user",
+      role: "user", //Restricting to user creation, admin can manually make the user to admin in db
     });
 
     res.status(201).json({
@@ -31,8 +41,13 @@ exports.register = async (req, res) => {
       }
     });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Server error" });
+    if (error.name === "SequelizeValidationError") {
+      return res.status(400).json({ 
+        message: "Validation error", 
+        errors: error.errors.map(e => e.message) 
+      });
+    } 
+    res.status(500).json({ message: "Server error during registration" });
   }
 };
 
