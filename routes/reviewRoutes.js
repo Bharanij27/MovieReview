@@ -10,7 +10,7 @@ router.get("/movie/:movieId", reviewController.getMovieReviews);
 router.get("/user", auth, reviewController.getUserReviews);
 
 // Create a review for a movie (authenticated)
-router.post("/movie/:movieId", auth, reviewController.createReview);
+router.post("/movie", auth, reviewController.createReview);
 
 // Update user's review (authenticated)
 router.put("/:reviewId", auth, reviewController.updateReview);

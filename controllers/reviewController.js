@@ -24,8 +24,7 @@ exports.getMovieReviews = async (req, res) => {
 // Create a review
 exports.createReview = async (req, res) => {
   try {
-    const { description, rating } = req.body;
-    const movieId = req.params.movieId;
+    const { description, rating, movieId } = req.body;
     const userId = req.user.id; // Get userId from JWT token
 
     // Check if user already reviewed this movie
