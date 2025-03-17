@@ -30,12 +30,6 @@ app.use("/api/auth", authRoutes);
 app.use("/api/movies", movieRoutes);
 app.use("/api/reviews", reviewRoutes);
 
-sequelize
-  .sync({ alter: true })
-  .then(() => {
-    console.log("Database connected & synchronized.");
-    app.listen(process.env.PORT, () =>
-      console.log(`Server running on port ${process.env.PORT}`)
-    );
-  })
-  .catch((error) => console.error("Database connection error:", error));
+app.listen(process.env.PORT, () =>
+  console.log(`Server running on port ${process.env.PORT}`)
+);
