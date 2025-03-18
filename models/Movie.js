@@ -33,7 +33,7 @@ const Movie = sequelize.define("Movie", {
   },
   imageUrl: {
     type: DataTypes.STRING,
-    allowNull: true,
+    allowNull: false,
   },
   isDeleted:{
     type: DataTypes.BOOLEAN,
