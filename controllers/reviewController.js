@@ -33,6 +33,14 @@ exports.createReview = async (req, res) => {
     const { description, rating, movieId } = req.body;
     const userId = req.user.id; // Get userId from JWT token
 
+    const isMovieExists = await Movie.findOne({
+      where: { id: movieId },
+    });
+
+    if (!isMovieExists) {
+      return res.status(400).json({ message: "Movie doesn't exists" });
+    }
+
     // Check if user already reviewed this movie
     const existingReview = await Review.findOne({
       where: { userId, movieId },
