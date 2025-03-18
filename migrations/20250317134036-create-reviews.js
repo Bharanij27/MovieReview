@@ -40,7 +40,7 @@ module.exports = {
       },
       description: {
         type: DataTypes.TEXT,
-        allowNull: true,
+        allowNull: false,
       },
       createdAt: {
         allowNull: false,
