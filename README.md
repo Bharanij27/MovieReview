@@ -52,20 +52,12 @@ node-express-mysql/
 Create a `.env` file in the root directory and define database credentials:
 
 ```env
-<<<<<<< Updated upstream
-DB_HOST=localhost
-DB_USER=root
-DB_PASSWORD=your_password
-DB_DATABASE=my_database
-PORT=3000
-=======
 PORT=3000
 JWT_SECRET=your_jwt_secret_key_here
 DB_HOST=127.0.0.1
 DB_USER=user_name
 DB_PASS=your_password
 DB_NAME=moviereview
->>>>>>> Stashed changes
 ```
 
 
@@ -79,11 +71,7 @@ Add scripts to `package.json`:
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js",
     "dev": "nodemon app.js",
-<<<<<<< Updated upstream
-    "initialize": "npx sequelize-cli migration:generate --name init",
-=======
     "dev": "npx sequelize-cli db:migrate && nodemon app.js",
->>>>>>> Stashed changes
     "build": "npm install && npx sequelize-cli db:migrate"
   },
 ```
