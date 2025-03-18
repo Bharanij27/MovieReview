@@ -22,7 +22,7 @@ npm init -y
 ### Install Required Dependencies
 
 ```bash
-npm install express mysql dotenv
+npm install express mysql2 dotenv
 npm install nodemon --save-dev
 ```
 
