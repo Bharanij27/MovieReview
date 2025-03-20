@@ -12,7 +12,7 @@ const app = express();
 // Middleware
 app.use(express.json());
 
-const allowedOrigins = ['http://localhost:5173', 'http://localhost:3001'];
+const allowedOrigins = ['http://localhost:5173', 'http://localhost:3001','http://launchpad-frontend-1.s3-website-us-east-1.amazonaws.com'];
  
 app.use(cors({
     origin: function (origin, callback) {
